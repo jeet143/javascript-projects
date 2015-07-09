@@ -1,0 +1,6 @@
+{
+  "api": {
+    "base": "http://api.rottentomatoes.com/api/public/v1.0",
+    "key": "jcc3ypbqxamcxsq6rvbfp48n"
+  }
+}

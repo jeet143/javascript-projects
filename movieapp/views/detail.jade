@@ -1,0 +1,28 @@
+extends master
+
+block content
+  .container(ng-controller="movieDetailController")
+    h2.v-center {{movie.title}}
+    p.lead /// {{movie.critics_consensus || movie.ratings.critics_rating}}
+
+    p
+      b year: 
+      | {{movie.year}} // 
+      b rated: 
+      | {{movie.mpaa_rating}} // 
+      b genres: 
+      | 
+      span(ng-repeat="genre in movie.genres")
+        span {{genre}}{{$last ? '' : ' :: '}}
+
+      p {{movie.synopsis}}
+
+    p
+      ul
+        li.resultList(ng-repeat="cast in movie.abridged_cast")
+          b {{cast.name}} 
+          | as 
+          span(ng-repeat="character in cast.characters")
+            span {{character}}
+
+    

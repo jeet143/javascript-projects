@@ -1,0 +1,46 @@
+extends master
+
+block content
+  .container
+    h2.v-center search
+    p.lead /// find a movie by title
+
+    .row(ng-controller="movieController")
+      form.col-md-5
+        .input-group
+          input.form-control.input-md(type="text", ng-model="title")
+          span.input-group-btn
+            button.btn.btn-md.btn-warning.pull-right(type="submit", ng-click="searchMovies()") search
+        p(ng-show="movies.length == 0")
+          i.yellow * no movies found
+
+        div.more-results-block(ng-show="movies.alternatives.length > 0")
+          p
+            i.span /// more results
+            hr
+          div(ng-repeat="alt in movies.alternatives")
+            p
+              h5 {{ alt.title }}
+
+      .col-md-1
+
+      .col-md-6.movie-block(ng-show="movies.main")
+        .col-md-12
+          p
+            h3(style="margin-top: 3px !important") {{movies.main.title}}
+            p  {{movies.main.year}} | {{movies.main.mpaa_rating}}
+            p  {{movies.main.synopsis}}
+            p
+              button.btn.btn-default(style="width: 100%",ng-click="toggleCast()") {{castBtnText || '+ show cast'}} 
+              ul(ng-show="displayCast")
+                li.resultList(ng-repeat="cast in movies.main.abridged_cast")
+                  span {{cast.name}}
+
+              button.btn.btn-default(style="width: 100%", ng-click="toggleReview(movies.main.id)") {{reviewBtnText || '+ show review'}} 
+              div(ng-show="displayReview")
+                p.review-block(ng-repeat="review in reviews")
+                  span {{review.quote}}
+                  span.i.pull-right - {{review.publication}}
+              
+              a.btn.btn-default(style="width: 100%; margin-top: 10px", href="movie/{{movies.main.id}}") details               
+
